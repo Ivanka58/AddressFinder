@@ -5,12 +5,8 @@ from fastapi import FastAPI
 import uvicorn
 
 # Получаем токен бота из переменных окружения Render
-BOT_TOKEN = os.getenv('BOT_TOKEN')
-
-if BOT_TOKEN is None:
-    raise ValueError("BOT_TOKEN is not set in environment variables.")
-
-bot = telebot.TeleBot(BOT_TOKEN)
+TOKEN = os.getenv("TG_TOKEN")
+bot = telebot.TeleBot(TOKEN)
 
 # Инициализируем FastAPI приложение
 app = FastAPI()
@@ -64,5 +60,5 @@ async def root():
     return {"message": "Telegram Postal Code to Address Bot is running!"}
 
 if __name__ == "__main__":
-    PORT = int(os.getenv('PORT', 8080))
+    PORT = int(os.environ.get("PORT", 8080))
     uvicorn.run(app, host="0.0.0.0", port=PORT)
