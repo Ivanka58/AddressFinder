@@ -60,5 +60,5 @@ async def root():
     return {"message": "Telegram Postal Code to Address Bot is running!"}
 
 if __name__ == "__main__":
-    PORT = int(os.environ.get("PORT", 8080))
+    PORT = int(os.environ.get("PORT", 3000))
     uvicorn.run(app, host="0.0.0.0", port=PORT)
