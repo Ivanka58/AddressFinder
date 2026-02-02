@@ -1,6 +1,7 @@
 import telebot
 from telebot.types import Message
 import requests
+from bs4 import BeautifulSoup
 import os
 
 # Загрузка токена из переменной окружения
@@ -29,11 +30,11 @@ def handle_all_messages(message: Message):
         response = requests.get(search_url)
         response.raise_for_status()
 
-        # Здесь можно добавить логику для парсинга результатов поиска
-        # Например, можно использовать BeautifulSoup для извлечения данных из HTML
+        # Парсинг HTML страницы
+        soup = BeautifulSoup(response.text, 'html.parser')
 
-        # Примерный результат (для демонстрации)
-        address = "Примерный адрес, который был найден в поиске"
+        # Примерный код для извлечения адреса
+        address = soup.find('div', class_='search-result').text
 
         # Удаляем сообщение "Ищу адрес..."
         bot.delete_message(chat_id=message.chat.id, message_id=msg_id)
